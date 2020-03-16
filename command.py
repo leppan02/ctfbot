@@ -16,5 +16,6 @@ async def test(obj):
     obj = await add(obj)
     obj = await solved(obj)
     obj = await remove(obj)
+    obj = await archive(obj)
     print(obj.resp)
     return obj

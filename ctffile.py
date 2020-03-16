@@ -7,6 +7,12 @@ from time import sleep
 names = []
 links = dict(dict())
 
+async def check(obj):
+    for i in obj.guild.channels:
+        if(str(i.category) == str(obj.channel.category)):
+            if(str(i.category) == str(i.name)):
+                return False
+    return True
 async def add(obj):
     if(obj.message[0].lower() != 'add'):
         return obj
@@ -15,9 +21,13 @@ async def add(obj):
         obj.resp.append('1 arguments after add')
         obj.resp.append('[chall name]')
         return obj
+    
     tmpchall = chall(name = obj.message[1], category = obj.channel.category)
     if(tmpchall.category == None):
         obj.resp.append('this chat does not belong to a competition')
+        return obj
+    if(await check(obj)):
+        obj.resp.append('master chat missing')
         return obj
     for i in obj.guild.channels:
         if(str(i.category) == str(tmpchall.category) and str(i.name) == str(tmpchall.name)):
@@ -35,7 +45,34 @@ async def add(obj):
     obj.resp.append('new text and voice chat created')
     return obj
     
+async def archive(obj):
+    if(obj.message[0].lower() != 'archive'):
+        return obj
+
+    if(len(obj.message) != 2):
+        obj.resp.append('Incorrect input')
+        obj.resp.append('1 arguments after archive')
+        obj.resp.append('iamcertain')
+        return obj
+    tmpchall = chall(name = str(obj.channel.name), category = str(obj.channel.category))
+    if(tmpchall.category == None):
+        obj.resp.append('this chat does not belong to a competition')
+        return obj
+    if(await check(obj)):
+        obj.resp.append('master chat missing')
+        return obj
+    if(tmpchall.name!=tmpchall.category):
+        obj.resp.append('not master chat')
+        obj.resp.append('goto {}'.format(tmpchall.category))
+    for i in obj.guild.channels:
+        if(str(i.type)=='voice' and str(i.category) == tmpchall.category):
+            await i.delete()
+    await obj.channel.category.edit(position = 100)
+    await obj.channel.category.edit(name = 'archive_'+tmpchall.name)
     
+    obj.resp.append('archived')
+    return obj
+
 async def solved(obj):
     if(obj.message[0].lower() != 'solved'):
         return obj
@@ -48,6 +85,9 @@ async def solved(obj):
     tmpchall = chall(name = str(obj.channel.name), category = str(obj.channel.category))
     if(tmpchall.category == None):
         obj.resp.append('this chat does not belong to a competition')
+        return obj
+    if(await check(obj)):
+        obj.resp.append('master chat missing')
         return obj
     if(tmpchall.name[:7] == 'solved_'):
         obj.resp.append('already solved')
@@ -71,7 +111,7 @@ async def remove(obj):
 
     if(len(obj.message) != 2):
         obj.resp.append('Incorrect input')
-        obj.resp.append('1 arguments after solved')
+        obj.resp.append('1 arguments after remove')
         obj.resp.append('iamcertain')
         return obj
     if(str(obj.message[1]) != 'iamcertain'):
@@ -82,6 +122,9 @@ async def remove(obj):
     tmpchall = chall(name = str(obj.channel.name), category = str(obj.channel.category))
     if(tmpchall.category == None):
         obj.resp.append('this chat does not belong to a competition')
+        return obj
+    if(await check(obj)):
+        obj.resp.append('master chat missing')
         return obj
     if(tmpchall.name == tmpchall.category):
         obj.resp.append('cannot remove master chat')
