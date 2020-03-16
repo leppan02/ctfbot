@@ -1,8 +1,8 @@
 
 class MessageClass():
-    def __init__(self, message=[], files=[], resp=[], resplinks=[], channel = None, guild = None):
+    def __init__(self, message=[], links=[], resp=[], resplinks=[], channel = None, guild = None):
         self.message = message
-        self.files = files
+        self.links = links
         self.resp = resp
         self.resplinks = resplinks
         self.channel = channel
@@ -21,7 +21,7 @@ class MessageClass():
         return len(self.message)!=0
 
     async def output(self):
-        resp = self.resp
+        resp = self.resp.copy()
         if(self.hasrespfiles()):
             resp.append('Here are {} links:'.format(len(self.resplinks)))
             for i, l in enumerate(self.resplinks):

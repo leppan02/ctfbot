@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 "discord.py" = "*"
 validators = "*"
+request = "*"
+requests = "*"
+urllib3 = "*"
 
 [dev-packages]
 pylint = "*"

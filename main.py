@@ -18,10 +18,10 @@ class MyClient(discord.Client):
 async def messagehandling(message):
     if(message.content.split(' ')[0].lower() != 'ctf'):
         return
-    current = MessageClass(message = message.content.split(' ')[1:], channel = message.channel,guild = message.guild, resp = [], resplinks = [], files = [])
+    current = MessageClass(message = message.content.split(' ')[1:], channel = message.channel,guild = message.guild, resp = [], resplinks = [], links = [])
     if(len(message.attachments)):
-        current.files.append(message.attachments[0].url)
-    current = await test(current)
+        current.links.append(message.attachments[0].url)
+    current = await command(current)
     if(await current.hasresp()):
         await message.channel.send('\n'.join(await current.output()))
         current.resp = []

@@ -1,10 +1,12 @@
 import asyncio
-
+from competition import *
+from func import *
 from classes import *
 from helpfile import *
-from ctffile import *
-allcommands = ['new','archive', 'add', 'solved', 'challs', 'scoreboard', 'links', 'link', 'file', 'remove']
-async def test(obj):
+from chall import *
+allcommands = ['links','save','alllinks','delete', 'new','archive', 'add', 'solved', 'challs', 'scoreboard', 'links', 'link', 'file', 'remove']
+async def command(obj):
+
     if(obj.hasmessage() == False):
         obj.resp = help()
         return obj
@@ -17,5 +19,9 @@ async def test(obj):
     obj = await solved(obj)
     obj = await remove(obj)
     obj = await archive(obj)
-    print(obj.resp)
+    obj = await erase(obj)
+    obj = await links(obj)
+    obj = await save(obj)
+    obj = await alllinks(obj)
+
     return obj
