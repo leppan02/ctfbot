@@ -142,20 +142,22 @@ async def new(obj):
 
     if(len(obj.message) != 5):
         obj.resp.append('Incorrect input')
-        obj.resp.append('3 arguments after new')
-        obj.resp.append('[website] [username] [password]')
+        obj.resp.append('4 arguments after new')
+        obj.resp.append('[name] [website] [username] [password]')
         return obj
 
     tmpctf = ctf(url = obj.message[2], name = obj.message[1], username = obj.message[3], password = obj.message[4])
 
     if(validators.url(tmpctf.url)==False):
         obj.resp.append('url incorrect')
+        return obj
     
 
     for i in obj.guild.channels:
         if(i.name == tmpctf.name and str(i.type) == 'category'):
             print(i.name)
             obj.resp.append('name already used')
+            return obj
 
     if(await obj.hasresp()):
         return obj

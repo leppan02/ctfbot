@@ -16,7 +16,7 @@ class MyClient(discord.Client):
         return
 
 async def messagehandling(message):
-    if(message.content.split(' ')[0] != 'ctf'):
+    if(message.content.split(' ')[0].lower() != 'ctf'):
         return
     current = MessageClass(message = message.content.split(' ')[1:], channel = message.channel,guild = message.guild, resp = [], resplinks = [], files = [])
     if(len(message.attachments)):
