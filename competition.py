@@ -66,7 +66,7 @@ async def new(obj):
     # 
     # input is correct 
     # 
-
+    pickleempty(tmpctf.name, tmpctf.name)
     tmpctf.category = await obj.guild.create_category(tmpctf.name)
     await tmpctf.category.edit(position = 1)
     await obj.guild.create_text_channel(name = tmpctf.name, category = tmpctf.category, topic = ('{0.url} {0.username} {0.password}'.format(tmpctf)))
