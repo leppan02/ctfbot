@@ -1,9 +1,9 @@
 def help():
     h = [
     '***general commands:***',
-    'new [name(one short word)] [website] [username] [password] *create new competion.*',
+    'new [name(one short word)] [website] [username] [password] *create new competition.*',
     '***competition chat commands:***',
-    'archive iamcertain *archive competion, use with caution.*',
+    'archive iamcertain *archive competition, use with caution.*',
     'add [chall name] *add chall text and voice chat.*',
     '***chall chat commands:***',
     'solved *moves chat to bottom, removes voice chat and changes name to solved_chall.*',
