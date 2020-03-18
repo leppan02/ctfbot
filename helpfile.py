@@ -7,7 +7,7 @@ def help():
     'alllinks *list all list in competition*',
     'delete iamcertain *deletes competion*',
     '***competition chat commands:***',
-    'archive iamcertain *archive competion, use with caution.*',
+    'archive iamcertain *archive competition, use with caution.*',
     'add [chall name] *add chall text and voice chat.*',
     '***chall chat commands:***',
     'solved *moves chat to bottom, removes voice chat and changes name to solved_chall.*',
