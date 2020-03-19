@@ -33,7 +33,7 @@ async def add(obj):
     # input is correct 
     # 
 
-    pickleempty(tmpchall.category,tmpchall.name)
+    pickleempty(str(obj.channel.category), obj.channel.id)
     addedtextchat = await obj.channel.clone(name=tmpchall.name)
     addedvoicechat = await obj.guild.create_voice_channel(name=tmpchall.name, category = addedtextchat.category)
     await addedtextchat.edit(position = 0)
@@ -110,7 +110,7 @@ async def remove(obj):
     # input is correct 
     # 
 
-    pickleempty(tmpchall.category,tmpchall.name)
+    pickleempty(str(obj.channel.category), obj.channel.id)
     await obj.channel.delete()
     for i in obj.guild.channels: # deletes voice chat
         if(str(i.type)=='voice' and str(i.name) == tmpchall.name and str(i.category) == tmpchall.category):
@@ -136,8 +136,7 @@ async def links(obj):
     # input is correct 
     # 
 
-    tmpchall = chall(name = str(obj.channel.name), category = str(obj.channel.category))
-    obj.resplinks = picklereturn(tmpchall.category,tmpchall.name)
+    obj.resplinks = picklereturn(str(obj.channel.category),obj.channel.id)
     return obj
 
 async def save(obj):
@@ -159,7 +158,7 @@ async def save(obj):
     # input is correct 
     # 
 
-    pickleadd(str(obj.channel.category), str(obj.channel.name), obj.links)
+    pickleadd(str(obj.channel.category), obj.channel.id, obj.links)
     obj.resp.append('added links')
     obj.resplinks.extend(obj.links)
     return obj    

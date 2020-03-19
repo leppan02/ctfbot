@@ -1,4 +1,8 @@
-def help():
+import asyncio
+
+def help(obj):
+    if(obj.handled):
+        return obj
     h = [
     '***general commands:***',
     'new [name(one short word)] [website] [username] [password] *create new competion.*',
@@ -16,6 +20,5 @@ def help():
     '*might be buggy if you use nonascii chars*',
     '***todo:***', 
     'finding all the bugs, rsa solver, ctfd integration, command execution, ctf-katana integration, simple commands on string and files']
+    obj.resp.append(h)
     return h
-
-c = ['links','save','alllinks','delete', 'new','archive', 'add', 'solved', 'challs', 'scoreboard', 'links', 'link', 'file', 'remove']

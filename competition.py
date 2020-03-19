@@ -1,17 +1,8 @@
-from classes import *
-from func import *
-import os.path
-from os import path
 import validators
 import discord
-from time import sleep
-import pickle
-links = dict(dict())
-pdir = 'pkl/ctfpickle.pkl'
 
 
 async def archive(obj):
-
     if(obj.message[0].lower() != 'archive'):
         return obj
     if(len(obj.message) != 2):
@@ -66,7 +57,7 @@ async def new(obj):
     # 
     # input is correct 
     # 
-    pickleempty(tmpctf.name, tmpctf.name)
+    pickleempty(str(obj.channel.category), obj.channel.id)
     tmpctf.category = await obj.guild.create_category(tmpctf.name)
     await tmpctf.category.edit(position = 1)
     await obj.guild.create_text_channel(name = tmpctf.name, category = tmpctf.category, topic = ('{0.url} {0.username} {0.password}'.format(tmpctf)))
@@ -101,7 +92,8 @@ async def erase(obj):
     # 
     # input is correct 
     # 
-
+    
+    pickleempty(str(obj.channel.category), obj.channel.id)
     await obj.channel.delete()
     for i in obj.guild.channels:
         if(str(i.category) == tmpchall.category):
@@ -131,8 +123,7 @@ async def alllinks(obj):
     # input is correct 
     # 
 
-    tmpchall = chall(name = str(obj.channel.name), category = str(obj.channel.category))
     for i in obj.guild.channels:
-        if(str(i.type)=='text' and str(i.category) == tmpchall.category):
-            obj.resplinks.extend(picklereturn(str(i.category),str(i.name)))
+        if i.category.id == obj.channel.category.id:
+            obj.resplinks.extend(picklereturn(i.category,i.id))
     return obj  
