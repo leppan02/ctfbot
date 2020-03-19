@@ -94,8 +94,10 @@ class PersitentStorage():
     def remove(self, key):
         self.read()
         self.check(key)
+        l = len(self.items[key])
         self.items[key] = []
         self.write()
+        return l
 
 class Client(discord.Client):
     async def on_ready(self):

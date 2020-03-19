@@ -4,8 +4,7 @@ supply {num} argument after command, like this {arguments}"""
 objectsheader = 'Here are {} objects:\n-------------------'
 objects = """objects #{num}:
 {objects}
--------------------
-"""
+-------------------"""
 
 commandsuccesfull = """command {} ran successfully"""
 

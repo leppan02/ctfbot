@@ -80,3 +80,36 @@ async def remove(obj):
         if i.category == cat and str(i) == name:
             await i.delete()
     return True
+
+async def solved(obj):
+    if str(obj.channel) == str(obj.channel.category):
+        obj.response.append('Cannot solve master chat.')
+        return True
+    if notvalid(obj):
+        obj.response.append('Not a valid competition.')
+        return True
+    name = str(obj.channel)
+    if(name[:7]=='solved_'):
+        obj.response.append('already solved')
+        return True
+    cat = obj.channel.category
+    objname = obj.channel
+    
+    await objname.edit(name='solved_'+name, position = 100)
+    for i in obj.guild.channels:
+        if i.category == cat and str(i) == name:
+            await i.delete()
+    obj.response.append('Goodjob, one more off the list! :)')
+    return True
+
+async def change(obj):
+    ctf = Class.CtfCompetition(url = obj.message[0], name = '', username = obj.message[1], password = obj.message[2])
+    if notvalid(obj):
+        obj.response.append('Not a valid competition.')
+        return True
+
+    cat = obj.channel.category
+    for i in obj.guild.channels:
+        if i.category == cat and str(i.type) == 'text'  :
+            await i.edit(topic = (pf.description.format(ctf)))
+    return True
