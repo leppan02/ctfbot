@@ -3,7 +3,7 @@ import discord
 import os.path
 import printformat as pf
 import features
-
+from db import retrieve, insert
 class Feature():
     def __init__(self, n, args, com, description, function):
         self.n = n
