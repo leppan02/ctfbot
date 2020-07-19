@@ -1,8 +1,6 @@
 from Class import Feature,Message
 import printformat as pf
 import servermanager
-import objectmanager
-import notesmanager
 BOTNAME = 'ctf'
 
 def construction(obj):
@@ -33,12 +31,6 @@ async def MessageHandling(message):
 featurelist = {
     'new' : Feature(n = 4 , args = 'new [name] [url] [username] [password]', com = 'new', description = 'Create new competion.',function=servermanager.new),
     'add' : Feature(n = 1 , args = 'add [name]', com = 'add', description = 'Add new chall.',function=servermanager.add),
-    'objects' : Feature(n = 0 , args = 'objects', com = 'objects', description = 'List all saved objects in current chall.',function=objectmanager.objects),
-    '-objects' : Feature(n = 0 , args = '-objects iamcertain', com = '-objects', description = 'Deletes all saved objects in current chall.',function=objectmanager.remove),
-    '+objects' : Feature(n = None , args = '+objects [attach file or link]', com = '+objects', description = 'Save links or files such as solution scripts or research links.',function=objectmanager.save),
-    '+notes' : Feature(n = None, args = '+notes [very important note]', com = '+notes', description = 'Save notes sush as ssh login.',function=notesmanager.save),
-    'notes' : Feature(n =  0, args = 'notes', com = 'notes', description = 'List saved notes in current chall.',function=notesmanager.notes),
-    '-notes' : Feature(n =  0, args = '-notes', com = '-notes', description = 'Removes saved notes in current chall.',function=notesmanager.remove),
     'delete' : Feature(n =  1, args = 'delete iamcertain', com = 'delete', description = 'Deletes current competion.',function=servermanager.delete),
     'archive' : Feature(n =  1, args = 'archive iamcertain', com = 'archive', description = 'Archive current competion.',function=construction),
     'solved' : Feature(n = 1 , args = 'solved [flag]', com = 'solved', description = 'Tags chall with solved_.',function=servermanager.solved),

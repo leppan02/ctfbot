@@ -3,7 +3,7 @@ import discord
 import os.path
 import printformat as pf
 import features
-from db import retrieve, insert
+from db import retrieve, insert, remove
 class Feature():
     def __init__(self, n, args, com, description, function):
         self.n = n
@@ -53,51 +53,6 @@ class CtfCompetition():
         self.password = password
         self.username = username
 
-class PersitentStorage():
-    def __init__(self, name):
-        self.dir = 'persistent/'+str(name)
-        self.items = {}
-        self.read()
-        
-    def write(self):
-        with open( self.dir, "wb" ) as f:
-            pickle.dump( self.items, f,  protocol=pickle.HIGHEST_PROTOCOL)
-        return
-
-    def read(self):
-        if(os.path.exists(self.dir)):
-            with open(self.dir, "rb" ) as f:
-                self.items = pickle.load( f )
-        else:
-            self.write()
-        return
-
-    def check(self,key):
-        self.read()
-        if(key not in self.items.keys()):
-            self.items[key] = []
-            self.write()
-        return
-    
-    def add(self ,key , listofitems):
-        self.check(key)
-        if type(listofitems) != type([]) :
-            listofitems = [listofitems]
-        self.items[key].extend(listofitems)
-        self.write()
-        return
-    
-    def get(self, key):
-        self.check(key)
-        return self.items[key]
-    
-    def remove(self, key):
-        self.read()
-        self.check(key)
-        l = len(self.items[key])
-        self.items[key] = []
-        self.write()
-        return l
 
 class Client(discord.Client):
     async def on_ready(self):
