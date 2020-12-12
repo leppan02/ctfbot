@@ -1,0 +1,7 @@
+- name: Deploy
+  when:
+    branch: master
+    event: [ push, pull_request ]
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
