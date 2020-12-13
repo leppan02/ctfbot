@@ -1,6 +1,7 @@
 import features
 import printformat as pf
 import discord
+import os
 TOKEN = 'Njg4NzY4NjA5NDE3NTYwMTg0.Xm5Inw.8OKgj8BIfTBdZ4g2KIN5BAteOAY'
 class Client(discord.Client):
     async def on_ready(self):
@@ -16,4 +17,7 @@ class Client(discord.Client):
 
 if __name__ == "__main__":    
     client = Client()
-    client.run(TOKEN)
+    try:
+        client.run(os.argv[1])
+    except:
+        raise "TOKEN missing"
