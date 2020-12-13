@@ -1,11 +1,10 @@
 import features
 import printformat as pf
 import discord
-import os
-TOKEN = 'Njg4NzY4NjA5NDE3NTYwMTg0.Xm5Inw.8OKgj8BIfTBdZ4g2KIN5BAteOAY'
+import sys
 class Client(discord.Client):
     async def on_ready(self):
-        print('Logged on as {0}!'.format(self.user))
+        print(f'Logged on as {self.user}!')
 
     async def on_message(self, message):
         await features.MessageHandling(message)
@@ -18,6 +17,7 @@ class Client(discord.Client):
 if __name__ == "__main__":    
     client = Client()
     try:
-        client.run(os.argv[1])
+        TOKEN = sys.argv[1]
     except:
         raise "TOKEN missing"
+    client.run(TOKEN)
