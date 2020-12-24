@@ -8,8 +8,8 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP
-      port: 123123
-      targetPort: 123123
+      port: 12312
+      targetPort: 12312
 ---
 apiVersion: apps/v1
 kind: Deployment
