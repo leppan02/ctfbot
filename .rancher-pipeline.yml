@@ -5,7 +5,8 @@ stages:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: ctfbot:latest
-      registry: index.docker.io
+      pushRemote: true
+      registry: ghcr.io
 - name: deploy
   steps:
   - applyYamlConfig:
