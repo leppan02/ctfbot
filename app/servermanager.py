@@ -1,7 +1,7 @@
 import discord
-import validators
-import Class
+import structs
 import printformat as pf
+
 
 def notvalid(obj):
     for i in obj.guild.channels:
@@ -9,24 +9,26 @@ def notvalid(obj):
             return False
     return True
 
+
 async def new(obj):
-    ctf = Class.CtfCompetition(url = obj.message[1], name = obj.message[0].lower(), username = obj.message[2], password = obj.message[3])
-    if not validators.url(ctf.url):
-        obj.resp.append('url incorrect')
-        return True
-    
+    ctf = Class.CtfCompetition(url=obj.message[1], name=obj.message[0].lower(
+    ), username=obj.message[2], password=obj.message[3])
+
     for i in obj.guild.channels:
-        if(i.name != ctf.name or str(i.type) != 'category'):continue
+        if(i.name != ctf.name or str(i.type) != 'category'):
+            continue
         obj.response.append('Channel already exists')
         return True
 
     ctf.category = await obj.guild.create_category(ctf.name)
-    
-    await obj.guild.create_text_channel(name = ctf.name, category = ctf.category, topic = (pf.description.format(ctf)))
-    await obj.guild.create_voice_channel(name = ctf.name, category = ctf.category)
-    await ctf.category.edit(position = 1)
-    obj.response.append(pf.commandsuccesfull.format(obj.command+' '+' '.join(obj.message)))
+
+    await obj.guild.create_text_channel(name=ctf.name, category=ctf.category, topic=(pf.description.format(ctf)))
+    await obj.guild.create_voice_channel(name=ctf.name, category=ctf.category)
+    await ctf.category.edit(position=1)
+    obj.response.append(pf.commandsuccesfull.format(
+        obj.command+' '+' '.join(obj.message)))
     return True
+
 
 async def add(obj):
     newname = obj.message[0]
@@ -35,26 +37,30 @@ async def add(obj):
         return True
 
     for i in obj.guild.channels:
-        if str(i.name) != str(newname) or str(i.category) != str(obj.channel.category): continue
+        if str(i.name) != str(newname) or str(i.category) != str(obj.channel.category):
+            continue
         obj.response.append('Channel already exists')
         return True
 
     addedtextchat = await obj.channel.clone(name=newname)
     addedvoicechat = await obj.guild.create_voice_channel(name=newname, category=obj.channel.category)
-    await addedtextchat.edit(position = 0)
-    await addedvoicechat.edit(position = 0)
+    await addedtextchat.edit(position=0)
+    await addedvoicechat.edit(position=0)
 
     for i in obj.guild.channels:
-        if str(i.name) == str(i.category) and str(i.category) == str(obj.channel.category) : # move master chat to top 
-            await i.edit(position = 0)
-        
-    obj.response.append(pf.commandsuccesfull.format(obj.command+' '+' '.join(obj.message)))
+        # move master chat to top
+        if str(i.name) == str(i.category) and str(i.category) == str(obj.channel.category):
+            await i.edit(position=0)
+
+    obj.response.append(pf.commandsuccesfull.format(
+        obj.command+' '+' '.join(obj.message)))
     return obj
 
+
 async def delete(obj):
-    if obj.message[0]!='iamcertain':
+    if obj.message[0] != 'iamcertain':
         return False
-    
+
     if notvalid(obj):
         obj.response.append('Not a valid competition.')
         return True
@@ -65,8 +71,9 @@ async def delete(obj):
     await cat.delete()
     return True
 
+
 async def remove(obj):
-    if obj.message[0]!='iamcertain':
+    if obj.message[0] != 'iamcertain':
         return False
     if str(obj.channel) == str(obj.channel.category):
         obj.response.append('Cannot remove master chat.')
@@ -81,6 +88,7 @@ async def remove(obj):
             await i.delete()
     return True
 
+
 async def solved(obj):
     if str(obj.channel) == str(obj.channel.category):
         obj.response.append('Cannot solve master chat.')
@@ -89,27 +97,29 @@ async def solved(obj):
         obj.response.append('Not a valid competition.')
         return True
     name = str(obj.channel)
-    if(name[:7]=='solved_'):
+    if(name[:7] == 'solved_'):
         obj.response.append('already solved')
         return True
     cat = obj.channel.category
     objname = obj.channel
-    
-    await objname.edit(name='solved_'+name, position = 100)
+
+    await objname.edit(name='solved_'+name, position=100)
     for i in obj.guild.channels:
         if i.category == cat and str(i) == name:
             await i.delete()
     obj.response.append('Goodjob, one more off the list! :)')
     return True
 
+
 async def change(obj):
-    ctf = Class.CtfCompetition(url = obj.message[0], name = '', username = obj.message[1], password = obj.message[2])
+    ctf = Class.CtfCompetition(
+        url=obj.message[0], name='', username=obj.message[1], password=obj.message[2])
     if notvalid(obj):
         obj.response.append('Not a valid competition.')
         return True
 
     cat = obj.channel.category
     for i in obj.guild.channels:
-        if i.category == cat and str(i.type) == 'text'  :
-            await i.edit(topic = (pf.description.format(ctf)))
+        if i.category == cat and str(i.type) == 'text':
+            await i.edit(topic=(pf.description.format(ctf)))
     return True

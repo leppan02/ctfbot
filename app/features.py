@@ -1,4 +1,4 @@
-from Class import Feature,Message
+from structs import Feature,Message
 import printformat as pf
 import servermanager
 BOTNAME = 'ctf'

@@ -1,7 +1,8 @@
 import features
-import printformat as pf
 import discord
 import sys
+
+
 class Client(discord.Client):
     async def on_ready(self):
         print(f'Logged on as {self.user}!')
@@ -10,14 +11,15 @@ class Client(discord.Client):
         await features.MessageHandling(message)
         return
 
-    async def on_message_edit(self,before, message):
+    async def on_message_edit(self, before, message):
         await features.MessageHandling(message)
         return
 
-if __name__ == "__main__":    
+
+if __name__ == "__main__":
     client = Client()
     try:
         TOKEN = sys.argv[1]
     except:
-        raise "TOKEN missing"
+        raise Exception("TOKEN missing")
     client.run(TOKEN)

@@ -3,7 +3,8 @@ import discord
 import os.path
 import printformat as pf
 import features
-from db import retrieve, insert, remove
+
+
 class Feature():
     def __init__(self, n, args, com, description, function):
         self.n = n
@@ -11,6 +12,7 @@ class Feature():
         self.args = args
         self.description = description
         self.function = function
+
 
 class Message():
     def __init__(self,  channel, guild, objects):
@@ -23,28 +25,29 @@ class Message():
         self.guild = guild
         self.handled = False
         self.output = []
-    
+
     def hasobjects(self):
-        return len(self.objects)!=0
+        return len(self.objects) != 0
 
     def hasrespobjects(self):
-        return len(self.respobjects)!=0
-    
+        return len(self.respobjects) != 0
+
     def hasresponse(self):
-        return len(self.response)+len(self.respobjects)!=0
+        return len(self.response)+len(self.respobjects) != 0
 
     def hasmessage(self):
-        return len(self.message)!=0
+        return len(self.message) != 0
 
     def __str__(self):
         r = '\n'.join(self.response)
         o = []
-        if self.hasrespobjects() :
+        if self.hasrespobjects():
             o = [pf.objectsheader.format(len(self.respobjects))]
             for i, l in enumerate(self.respobjects):
-                o.append(pf.objects.format(num = i+1,objects = l))
-        r = '\n'.join([r,'\n'.join(o)])
+                o.append(pf.objects.format(num=i+1, objects=l))
+        r = '\n'.join([r, '\n'.join(o)])
         return r
+
 
 class CtfCompetition():
     def __init__(self, name, url, password, username):
@@ -62,6 +65,6 @@ class Client(discord.Client):
         await features.MessageHandling(message)
         return
 
-    async def on_message_edit(self,before, message):
+    async def on_message_edit(self, before, message):
         await features.MessageHandling(message)
         return
