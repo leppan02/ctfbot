@@ -4,10 +4,9 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: leppan02/ctfbot:latest
+      tag: ctfbot:latest
       registry: index.docker.io
-- name: deploy
-  steps:
-  - applyYamlConfig:
-      path: ./deployment.yaml
+branch:
+  include:
+  - master
 notification: {}
