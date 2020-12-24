@@ -7,6 +7,9 @@ spec:
     app: ctfbot
   type: NodePort
   ports:
+    - protocol: TCP
+      port: 123123
+      targetPort: 123123
 ---
 apiVersion: apps/v1
 kind: Deployment
