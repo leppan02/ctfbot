@@ -5,6 +5,8 @@ metadata:
 spec:
   selector:
     app: ctfbot
+  type: NodePort
+  ports:
 ---
 apiVersion: apps/v1
 kind: Deployment
