@@ -1,34 +1,19 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: ctfbot-service
-spec:
-  selector:
-    app: ctfbot
-  type: NodePort
-  ports:
-    - protocol: TCP
-      port: 12312
-      targetPort: 12312
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-ctfbot
+  name: ctfbot
   labels:
-    app: ctfbot
+    app: deployment-ctfbot
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ctfbot
+      app: deployment-ctfbot
   template:
     metadata:
       labels:
-        app: ctfbot
+        app: deployment-ctfbot
     spec:
-      imagePullSecrets:
-      - name: pipeline-docker-registry
       containers:
       - name: ctfbot
-        image: ctfbot:latest
+        image: ghcr.io/leppan02/ctfbot:latest
