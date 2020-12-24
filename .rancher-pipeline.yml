@@ -5,8 +5,7 @@ stages:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: ctfbot:${CICD_EXECUTION_SEQUENCE}
-      pushRemote: true
-      registry: ghcr.io
+      registry: 127.0.0.1:34654
 - name: deploy
   steps:
   - applyYamlConfig:
