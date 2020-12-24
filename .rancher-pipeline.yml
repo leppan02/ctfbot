@@ -4,7 +4,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: ctfbot:latest
+      tag: leppan02/ctfbot:latest
       pushRemote: true
       registry: ghcr.io
 - name: deploy
