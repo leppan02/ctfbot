@@ -6,6 +6,10 @@ stages:
       buildContext: .
       tag: ctfbot:latest
       registry: index.docker.io
+- name: deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
 branch:
   include:
   - master
