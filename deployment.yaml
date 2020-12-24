@@ -1,32 +1,29 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: discord-bot
-  namespace: default
+  name: ctfbot-service
 spec:
   selector:
-    app: discord-bot
+    app: ctfbot
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: default
-  name: discord-bot
+  name: example-ctfbot
   labels:
-    app: discord-botr
-    version: develop
+    app: ctfbot
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: discord-bot
-      version: develop
+      app: ctfbot
   template:
     metadata:
       labels:
-        app: discord-bot
-        version: develop
+        app: ctfbot
     spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
       containers:
-      - name: discord-bot
-        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+      - name: ctfbot
+        image: ctfbot:latest
