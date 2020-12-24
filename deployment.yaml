@@ -14,9 +14,11 @@ spec:
       labels:
         app: deployment-ctfbot
     spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
       containers:
-      - name: ctfbot
-        image: ghcr.io/leppan02/ctfbot:latest
+      - name: deployment-ctfbot
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         env:
         - name: APIKEY
           valueFrom:
