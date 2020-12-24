@@ -3,4 +3,4 @@ WORKDIR /usr/src/app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY app .
-CMD [ "python", "main.py","APIKEY" ]
+CMD [ "python", "main.py", $APIKEY ]
