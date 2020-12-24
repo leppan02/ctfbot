@@ -17,3 +17,9 @@ spec:
       containers:
       - name: ctfbot
         image: ghcr.io/leppan02/ctfbot:latest
+        env:
+        - name: APIKEY
+          valueFrom:
+            secretKeyRef:
+              key: discord-key
+              name: botapikey
