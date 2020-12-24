@@ -1,5 +1,14 @@
 stages:
-- name: Deploy
+- name: push
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: leppan02/ctfbot:latest
+      pushRemote: true
+      registry: index.docker.io
+- name: deploy
   steps:
   - applyYamlConfig:
       path: ./deployment.yaml
+notification: {}
