@@ -11,7 +11,7 @@ def notvalid(obj):
 
 
 async def new(obj):
-    ctf = Class.CtfCompetition(url=obj.message[1], name=obj.message[0].lower(
+    ctf = structs.CtfCompetition(url=obj.message[1], name=obj.message[0].lower(
     ), username=obj.message[2], password=obj.message[3])
 
     for i in obj.guild.channels:
