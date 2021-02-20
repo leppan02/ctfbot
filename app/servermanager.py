@@ -112,7 +112,7 @@ async def solved(obj):
 
 
 async def change(obj):
-    ctf = Class.CtfCompetition(
+    ctf = structs.CtfCompetition(
         url=obj.message[0], name='', username=obj.message[1], password=obj.message[2])
     if notvalid(obj):
         obj.response.append('Not a valid competition.')
