@@ -32,7 +32,7 @@ featurelist = {
     'new' : Feature(n = 4 , args = 'new [name] [url] [username] [password]', com = 'new', description = 'Create new competion.',function=servermanager.new),
     'add' : Feature(n = 1 , args = 'add [name]', com = 'add', description = 'Add new chall.',function=servermanager.add),
     'delete' : Feature(n =  1, args = 'delete iamcertain', com = 'delete', description = 'Deletes current competion.',function=servermanager.delete),
-    'archive' : Feature(n =  1, args = 'archive iamcertain', com = 'archive', description = 'Archive current competion.',function=construction),
+    'archive' : Feature(n =  1, args = 'archive iamcertain', com = 'archive', description = 'Archive current competion.',function=servermanager.archive),
     'solved' : Feature(n = 1 , args = 'solved [flag]', com = 'solved', description = 'Tags chall with solved_.',function=servermanager.solved),
     'remove' : Feature(n = 1 , args = 'remove iamcertain', com = 'remove', description = 'Remove current chall.',function=servermanager.remove),
     'change' : Feature(n = 3 , args = 'change [url] [username] [password]', com = 'change', description = 'Change description in competition chat.',function=servermanager.change)
