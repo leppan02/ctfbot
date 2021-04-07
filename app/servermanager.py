@@ -96,13 +96,16 @@ async def archive(obj):
         return True
     name = str(obj.channel)
     cat = str(obj.channel.category)
-    if(name.startwith('archived_')):
+    if(name.startswith('archived_')):
         obj.response.append('already archived')
         return True
     if name != cat:
         obj.response.append('Must be in master chat.')
         return True
-    obj.channel.edit(name='archived_'+name)
+    for i in obj.guild.channels:
+        if i.category == obj.channel.category and str(i.type) == 'voice':
+            await i.delete()
+    await obj.channel.edit(name='archived_'+name)
     return True
 
 
