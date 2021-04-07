@@ -88,6 +88,23 @@ async def remove(obj):
             await i.delete()
     return True
 
+async def archive(obj):
+    if obj.message[0] != 'iamcertain':
+        return False
+    if notvalid(obj):
+        obj.response.append('Not a valid competition.')
+        return True
+    name = str(obj.channel)
+    cat = str(obj.channel.category)
+    if(name.startwith('archived_')):
+        obj.response.append('already archived')
+        return True
+    if name != cat:
+        obj.response.append('Must be in master chat.')
+        return True
+    obj.channel.edit(name='archived_'+name)
+    return True
+
 
 async def solved(obj):
     if str(obj.channel) == str(obj.channel.category):
